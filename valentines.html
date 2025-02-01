@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Date! 💕</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+    body {
+      background: linear-gradient(to bottom, #ff4d4d, #ff1a75);
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 60px;
+      text-shadow: 4px 4px 10px rgba(255, 255, 255, 0.8);
+      opacity: 0;
+      animation: fadeIn 2s ease-in forwards;
+      margin-bottom: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    p {
+      font-size: 24px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 2s ease-in forwards 1s;
+      margin-bottom: 40px;
+    }
+
+    a {
+      color: #ff66b2;
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: 0.3s ease;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: white;
+    }
+
+    /* Fade-in effect for the header */
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      color: pink;
+      font-size: 24px;
+      animation: floatUp 5s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+    }
+
+    /* Falling Confetti */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: white;
+      animation: confettiFall 3s linear infinite;
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(-10vh) rotate(0); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Ribbon Falling Effect */
+    .ribbon {
+      position: absolute;
+      font-size: 18px;
+      animation: ribbonFall 4s linear infinite, ribbonFloat 3s linear infinite;
+      opacity: 0.8;
+      transform-origin: top center;
+    }
+
+    /* Ribbon falling animation */
+    @keyframes ribbonFall {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Ribbon floating animation */
+    @keyframes ribbonFloat {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-50px) scale(0.5); opacity: 0; }
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Congrats! You have an online movie date with me tonight 🥰😘</h1>
+  <p>Here's the link and make sure to attend! Lovelots! 💖</p>
+  <a href="https://meet.google.com/eoo-azys-yrs" target="_blank">Join the Movie Date Here!</a>
+
+  <script>
+    // Function to create falling hearts
+    function createFallingHeart() {
+      let heart = document.createElement("div");
+      heart.innerHTML = "❤️";
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = Math.random() * window.innerHeight + "px";
+      heart.style.fontSize = Math.random() * 30 + 10 + "px";
+      heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    // Function to create falling confetti
+    function createConfetti() {
+      let confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * window.innerWidth + "px";
+      confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 5000);
+    }
+
+    // Function to create falling ribbons (🎀 style)
+    function createRibbon() {
+      let ribbon = document.createElement("div");
+      ribbon.classList.add("ribbon");
+      ribbon.innerHTML = "🎀"; // Using the ribbon emoji
+      ribbon.style.left = Math.random() * window.innerWidth + "px";
+      ribbon.style.animationDuration = Math.random() * 3 + 2 + "s"; // Adjusted duration for ribbon fall
+      document.body.appendChild(ribbon);
+      setTimeout(() => ribbon.remove(), 5000);
+    }
+
+    // Set intervals for creating falling hearts, confetti, and ribbons
+    setInterval(createFallingHeart, 500);
+    setInterval(createConfetti, 300);
+    setInterval(createRibbon, 800);
+  </script>
+</body>
+</html>
