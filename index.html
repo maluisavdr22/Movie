@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><3</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+    body {
+      background: #ffe6e6;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    /* Envelope Animation */
+    .envelope-container {
+      position: relative;
+      width: 250px;
+      height: 200px;
+      cursor: pointer;
+    }
+
+    .envelope {
+      width: 100%;
+      height: 100%;
+      background: #d6336c;
+      position: absolute;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .top-flap {
+      width: 100%;
+      height: 50%;
+      background: #b82b57;
+      position: absolute;
+      top: 0;
+      clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+      transition: transform 0.6s ease-in-out;
+      transform-origin: top;
+    }
+
+    .card {
+      width: 90%;
+      height: 120px;
+      background: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #d6336c;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.6s ease-in-out, opacity 0.4s ease-in-out;
+      opacity: 0;
+    }
+
+    /* Open state */
+    .open .top-flap {
+      transform: rotateX(180deg);
+    }
+
+    .open .card {
+      transform: translate(-50%, -120%);
+      opacity: 1;
+    }
+
+    /* Buttons */
+    .buttons {
+      margin-top: 20px;
+      text-align: center;
+      display: none; /* Hidden until the envelope is opened */
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      margin: 10px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #yesBtn {
+      background-color: #d6336c;
+      color: #fff;
+    }
+
+    #noBtn {
+      background-color: #ccc;
+      color: #333;
+    }
+
+    /* Button hover effect */
+    #yesBtn:hover {
+      background-color: #ff0033;
+      transform: scale(1.1);
+      box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.6);
+    }
+
+    #noBtn:hover {
+      background-color: #bbb;
+      transform: scale(1.1);
+      box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      color: pink;
+      opacity: 0;
+      animation: floatUp 3s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Envelope Animation -->
+  <div class="envelope-container" id="envelope">
+    <div class="envelope">
+      <div class="top-flap"></div>
+    </div>
+    <div class="card">Do you wanna watch movie with me? ❤️</div>
+  </div>
+
+  <!-- Buttons (Hidden initially) -->
+  <div class="buttons" id="buttonsContainer">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+
+  <!-- Include the canvas-confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    // Envelope open animation
+    document.getElementById("envelope").addEventListener("click", function() {
+      this.classList.toggle("open");
+
+      // Show buttons after opening the envelope
+      setTimeout(() => {
+        document.getElementById("buttonsContainer").style.display = "block";
+      }, 600);
+    });
+
+    // If "Yes" is clicked, navigate to the Valentine's page and trigger confetti.
+    document.getElementById("yesBtn").addEventListener("click", function() {
+      confetti();
+      setTimeout(function() {
+        window.location.href = "questions.html";
+      }, 500);
+    });
+
+    // When "No" is clicked, move both buttons randomly
+    document.getElementById("noBtn").addEventListener("click", function() {
+      moveButton("yesBtn");
+      moveButton("noBtn");
+      createFloatingHeart();
+    });
+
+    // Function to move buttons randomly
+    function moveButton(buttonId) {
+      const button = document.getElementById(buttonId);
+      const maxX = window.innerWidth - button.offsetWidth - 50;
+      const maxY = window.innerHeight - button.offsetHeight - 50;
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+      button.style.position = "absolute";
+      button.style.left = randomX + "px";
+      button.style.top = randomY + "px";
+    }
+
+    // Function to create floating hearts
+    function createFloatingHeart() {
+      let heart = document.createElement("div");
+      heart.innerHTML = "❤️";
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = Math.random() * window.innerHeight + "px";
+      heart.style.fontSize = Math.random() * 20 + 10 + "px";
+      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }
+
+    // Create floating hearts every second
+    setInterval(createFloatingHeart, 1000);
+  </script>
+</body>
+</html>
